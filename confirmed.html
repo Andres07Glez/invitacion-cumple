@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>¿Quién más va? — Lista de confirmados</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<section id="screen-confirmed" class="screen">
+  <div class="confirmed-header">
+    <h1>&gt; ROSTER.exe</h1>
+    <p style="color:#6b7280;font-size:13px;">party_id: <span id="party-name"></span></p>
+  </div>
+
+  <div class="status-line">
+    <span class="live-dot">●</span> conexión en vivo con la base de datos
+  </div>
+
+  <div class="guest-list" id="guest-list">
+    <!-- filled by confirmed.js -->
+  </div>
+
+  <a href="index.html" class="back-link">&lt; volver al inicio</a>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/confirmed.js"></script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+/* ============================================================
+   STYLE.CSS — Tema terminal oscura / neón
+   ============================================================ */
+
+:root {
+  --bg: #05060a;
+  --bg-alt: #0b0e16;
+  --fg: #d6f5e3;
+  --neon-green: #39ff14;
+  --neon-pink: #ff2bd6;
+  --neon-cyan: #00fff2;
+  --neon-red: #ff2b2b;
+  --neon-yellow: #f4ff2b;
+  --border: #1f2a1f;
+  --font-mono: "Courier New", "Consolas", "Lucida Console", monospace;
+  --scanline-opacity: 0.06;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* CRT scanline overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, var(--scanline-opacity)) 0px,
+    rgba(255, 255, 255, var(--scanline-opacity)) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+a {
+  color: var(--neon-cyan);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Layout screens ---------- */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+/* ---------- Segfault / BSOD style ---------- */
+#screen-segfault {
+  background: var(--bg);
+  color: var(--neon-green);
+}
+
+.segfault-box {
+  max-width: 720px;
+  width: 100%;
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 18px rgba(57, 255, 20, 0.35), inset 0 0 24px rgba(57, 255, 20, 0.08);
+  padding: 28px 24px;
+  background: var(--bg-alt);
+  text-align: left;
+}
+
+.segfault-box pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0 0 18px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.segfault-title {
+  color: var(--neon-red);
+  font-weight: bold;
+  text-shadow: 0 0 8px var(--neon-red);
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+
+.term-btn {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  padding: 10px 26px;
+  background: transparent;
+  border: 2px solid var(--neon-green);
+  color: var(--neon-green);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.15s ease;
+}
+
+.term-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-green);
+}
+
+.term-btn.danger {
+  border-color: var(--neon-red);
+  color: var(--neon-red);
+}
+
+.term-btn.danger:hover {
+  background: var(--neon-red);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-red);
+}
+
+.term-btn.accent {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.term-btn.accent:hover {
+  background: var(--neon-pink);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon-pink);
+}
+
+/* ---------- Fake CMD popups (chaos) ---------- */
+#chaos-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+}
+
+.fake-cmd {
+  position: absolute;
+  width: 340px;
+  background: #000;
+  border: 1px solid #444;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  color: var(--neon-green);
+  animation: pop-in 0.15s ease-out;
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.fake-cmd .cmd-titlebar {
+  background: #c0c0c0;
+  color: #000;
+  font-family: Tahoma, sans-serif;
+  font-size: 11px;
+  padding: 3px 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fake-cmd .cmd-body {
+  padding: 8px;
+  white-space: pre-wrap;
+  height: 120px;
+  overflow: hidden;
+}
+
+/* ---------- Fake "Windows Defender" scan popup ---------- */
+.fake-cmd.fake-scan,
+.fake-scan {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  background: #000;
+  border: 1px solid #444;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+  animation: pop-in 0.2s ease-out;
+}
+
+.scan-body {
+  padding: 16px;
+  font-size: 13px;
+}
+
+.scan-status {
+  color: var(--neon-cyan);
+  margin-bottom: 12px;
+  min-height: 18px;
+}
+
+.scan-status.threat-text {
+  color: var(--neon-red);
+  text-shadow: 0 0 8px var(--neon-red);
+  animation: blink 0.6s steps(1) infinite;
+}
+
+.scan-bar {
+  width: 100%;
+  height: 14px;
+  border: 1px solid var(--neon-cyan);
+  background: #050505;
+}
+
+.scan-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
+  transition: width 0.05s linear;
+}
+
+.scan-bar-fill.threat {
+  background: var(--neon-red);
+  box-shadow: 0 0 12px var(--neon-red);
+}
+
+.scan-pct {
+  text-align: right;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ---------- Gorillas chasing the cursor ---------- */
+#gorilla-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 600;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gorilla-chaser {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110px;
+  will-change: transform;
+  animation: gorilla-spawn 0.3s ease-out;
+}
+
+.gorilla-chaser img {
+  width: 100%;
+  display: block;
+}
+
+.gorilla-chaser .gorilla-fallback {
+  font-size: 56px;
+  line-height: 1;
+}
+
+@keyframes gorilla-spawn {
+  from { transform: scale(0.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------- Name input ---------- */
+.terminal-input-wrap {
+  max-width: 560px;
+  width: 100%;
+  border: 1px solid var(--neon-cyan);
+  background: var(--bg-alt);
+  padding: 24px;
+  box-shadow: 0 0 18px rgba(0, 255, 242, 0.25);
+  text-align: left;
+}
+
+.terminal-input-wrap p {
+  color: var(--neon-cyan);
+  margin-top: 0;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.prompt-symbol {
+  color: var(--neon-green);
+}
+
+#name-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--neon-green);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  padding: 6px 4px;
+  outline: none;
+}
+
+#email-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--neon-cyan);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 6px 4px;
+  outline: none;
+  margin-top: 14px;
+}
+
+.field-label {
+  font-size: 12px;
+  color: var(--neon-cyan);
+  opacity: 0.8;
+  margin-top: 14px;
+}
+
+.error-text {
+  color: var(--neon-red);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* ---------- Achievement / confirmation screen ---------- */
+#screen-achievement {
+  position: relative;
+}
+
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.achievement-box {
+  position: relative;
+  z-index: 60;
+  max-width: 640px;
+  width: 100%;
+  border: 1px solid var(--neon-yellow);
+  background: var(--bg-alt);
+  padding: 28px 24px;
+  box-shadow: 0 0 24px rgba(244, 255, 43, 0.35);
+}
+
+.achievement-tag {
+  color: var(--neon-yellow);
+  letter-spacing: 3px;
+  font-size: 13px;
+  text-shadow: 0 0 8px var(--neon-yellow);
+}
+
+.achievement-title {
+  font-size: 26px;
+  margin: 8px 0 20px 0;
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green);
+}
+
+.party-details {
+  text-align: left;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+  padding: 16px 0;
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.party-details span.label {
+  color: var(--neon-pink);
+}
+
+/* ---------- confirmed.html ---------- */
+#screen-confirmed {
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-top: 40px;
+}
+
+.confirmed-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.confirmed-header h1 {
+  color: var(--neon-pink);
+  text-shadow: 0 0 10px var(--neon-pink);
+  letter-spacing: 2px;
+}
+
+.guest-list {
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+
+.guest-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.guest-row:last-child {
+  border-bottom: none;
+}
+
+.guest-row.confirmed .guest-name {
+  color: var(--neon-green);
+}
+
+.guest-row.confirmed .guest-name::before {
+  content: "✅ ";
+}
+
+.guest-row.pending .guest-name {
+  color: #6b7280;
+}
+
+.guest-time {
+  color: var(--neon-cyan);
+  font-size: 12px;
+}
+
+.back-link {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  color: var(--neon-cyan);
+}
+
+.status-line {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.status-line .live-dot {
+  color: var(--neon-green);
+  animation: blink 1.2s steps(1) infinite;
+}
+
+@media (max-width: 480px) {
+  .fake-cmd { width: 260px; }
+  #gorilla-corner img { width: 150px; }
+}

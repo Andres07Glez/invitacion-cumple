@@ -1,0 +1,6 @@
+# Carpetas personales ajenas al proyecto (no publicar)
+/Vale/
+/bere/
+
+# Config local de herramientas de desarrollo (no necesario para el deploy)
+.claude/

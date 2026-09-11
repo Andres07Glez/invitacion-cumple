@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Segmentation Fault</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============ SCREEN 1: SEGFAULT ============ -->
+<section id="screen-segfault" class="screen">
+  <div class="segfault-box">
+    <pre><span class="segfault-title">*** SEGMENTATION FAULT (core dumped) ***</span>
+
+proceso: invitacion_cumple.exe
+señal: SIGSEGV (11)
+dirección de fallo: 0x7fff5fbff8c8
+
+&gt; el sistema detectó que estás leyendo esto
+&gt; ¿continuar de todas formas? <span class="blink">_</span></pre>
+
+    <div class="btn-row">
+      <button id="btn-si" class="term-btn">[ SÍ ]</button>
+      <button id="btn-talvez" class="term-btn danger">[ TALVEZ ]</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 2: CONFIRM IDENTITY (resuelta por link, sin input) ============ -->
+<section id="screen-name" class="screen hidden">
+  <div class="terminal-input-wrap">
+    <p>&gt; invitación reconocida</p>
+    <p style="font-size:20px;margin:18px 0;">
+      &gt; ¿confirmas tu asistencia, <span id="guest-name-display" class="prompt-symbol"></span>?
+    </p>
+    <div id="name-error" class="error-text hidden"></div>
+    <div class="btn-row">
+      <button id="btn-confirm-name" class="term-btn">[ CONFIRMAR ]</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCREEN 0: INVALID / UNRECOGNIZED LINK ============ -->
+<section id="screen-invalid" class="screen hidden">
+  <div class="segfault-box">
+    <pre><span class="segfault-title">*** ACCESO DENEGADO ***</span>
+
+&gt; invitación no reconocida
+&gt; este link no corresponde a ningún invitado registrado
+
+&gt; pide tu link personal a quien organiza la fiesta <span class="blink">_</span></pre>
+  </div>
+</section>
+
+<!-- ============ SCREEN 3: ACHIEVEMENT ============ -->
+<section id="screen-achievement" class="screen hidden">
+  <canvas id="confetti-canvas"></canvas>
+  <div class="achievement-box">
+    <div class="achievement-tag">🏆 LOGRO DESBLOQUEADO</div>
+    <div class="achievement-title">Asistencia Confirmada</div>
+
+    <div class="party-details">
+      <div><span class="label">FECHA:</span> <span id="detail-fecha"></span></div>
+      <div><span class="label">LUGAR:</span> <span id="detail-lugar"></span></div>
+      <div><span class="label">QUÉ LLEVAR:</span> <span id="detail-llevar"></span></div>
+      <div><span class="label">NOTA:</span> <span id="detail-extra"></span></div>
+    </div>
+
+    <p id="save-status" style="font-size:12px;color:#6b7280;"></p>
+
+    <div class="btn-row">
+      <a href="confirmed.html" class="term-btn accent">[ VER QUIÉN MÁS VA ]</a>
+    </div>
+  </div>
+</section>
+
+<!-- Chaos layer for fake CMD popups -->
+<div id="chaos-layer"></div>
+
+<!-- Layer where the chasing gorillas get spawned dynamically -->
+<div id="gorilla-layer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

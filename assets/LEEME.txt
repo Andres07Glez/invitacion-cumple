@@ -1,0 +1,10 @@
+Coloca aquí tu imagen del "virus del gorila" con el nombre exacto:
+
+    gorilla.png
+
+La web lo busca en assets/gorilla.png. Si el archivo no existe, se muestra
+automáticamente un emoji 🦍 como fallback (ver js/main.js / css/style.css),
+así que la página funciona igual aunque no agregues la imagen.
+
+No se incluyó una imagen real por defecto para evitar problemas de derechos
+de autor / tamaño de archivo — agrégala tú manualmente.
