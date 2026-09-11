@@ -13,12 +13,13 @@ realtime), pensada para desplegarse en GitHub Pages.
 2. `index.html` muestra un falso "Segmentation Fault" estilo terminal con
    botones **[ SÍ ]** / **[ TALVEZ ]**.
 3. **TALVEZ** dispara una secuencia de ventanas CMD falsas, un falso
-   escaneo de "Windows Defender" que detecta una "amenaza", y luego una
-   manada de gorilas persiguiendo el cursor hasta que aparece el botón
-   **[ ACEPTAR ]**.
-4. **SÍ** o **ACEPTAR** llevan a una pantalla que ya saluda al invitado por
-   su nombre (resuelto por el link) y solo pide confirmar con un botón —
-   sin inputs de texto.
+   escaneo de "Windows Defender" que detecta una "amenaza", y una manada
+   de gorilas persiguiendo el cursor — es solo el gag, no lleva a ningún
+   lado: al terminar vuelve a la pantalla original con los botones
+   reactivados. La única forma real de avanzar es **[ SÍ ]**.
+4. **SÍ** lleva a una pantalla que ya saluda al invitado por su nombre
+   (resuelto por el link) y solo pide confirmar con un botón — sin inputs
+   de texto.
 5. Al confirmar:
    - Se guarda `{ slug, nombre, timestamp }` en la tabla `confirmados` de
      Supabase (upsert por slug: reabrir el link no crea duplicados).

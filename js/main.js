@@ -353,7 +353,7 @@
       vibrate([40]);
       if (count >= MAX_GORILLAS) {
         clearInterval(spawnInterval);
-        setTimeout(showAcceptButton, 3500);
+        setTimeout(endChaosSequence, 3500);
       }
     }, 350);
   }
@@ -367,17 +367,13 @@
     gorillaChaseHandle = null;
   }
 
-  function showAcceptButton() {
-    const box = document.querySelector(".segfault-box");
-    const acceptRow = document.createElement("div");
-    acceptRow.className = "btn-row";
-    acceptRow.innerHTML = '<button id="btn-aceptar" class="term-btn accent">[ ACEPTAR ]</button>';
-    box.appendChild(acceptRow);
-
-    document.getElementById("btn-aceptar").addEventListener("click", () => {
-      stopGorillaChase();
-      showScreen(screenName);
-    });
+  // El caos de TALVEZ no lleva a ningún lado — al terminar, vuelve a la
+  // pantalla original con los botones reactivados. La única forma real
+  // de avanzar a confirmar la asistencia es con el botón [ SÍ ].
+  function endChaosSequence() {
+    stopGorillaChase();
+    document.getElementById("btn-talvez").disabled = false;
+    document.getElementById("btn-si").disabled = false;
   }
 
   // ============================================================
