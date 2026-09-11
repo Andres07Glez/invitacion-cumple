@@ -130,6 +130,12 @@
 
   document.getElementById("guest-name-display").textContent = guestName;
 
+  // lleva el slug también a confirmed.html, para que su botón de
+  // "volver al inicio" pueda regresar al link personal de este invitado
+  // en vez de caer en la pantalla de "acceso denegado" sin slug
+  document.getElementById("link-ver-confirmados").href =
+    "confirmed.html?g=" + encodeURIComponent(guestSlug);
+
   // ---------- Buttons ----------
   document.getElementById("btn-si").addEventListener("click", () => {
     requestFullscreenSafe();
@@ -353,9 +359,26 @@
       vibrate([40]);
       if (count >= MAX_GORILLAS) {
         clearInterval(spawnInterval);
-        setTimeout(endChaosSequence, 3500);
+        // los gorilas se quedan persiguiendo el cursor indefinidamente:
+        // el chiste dura lo que el usuario quiera verlo, y un clic/toque
+        // en cualquier parte de la pantalla (no un botón con texto) es lo
+        // que lo termina.
+        armDismissOnAnyClick();
       }
     }, 350);
+  }
+
+  function armDismissOnAnyClick() {
+    const DISMISS_EVENTS = ["pointerdown", "touchstart", "keydown"];
+    function dismiss() {
+      DISMISS_EVENTS.forEach((evt) => window.removeEventListener(evt, dismiss, true));
+      endChaosSequence();
+    }
+    // pequeño respiro antes de armar el listener, para que el clic que
+    // disparó al último gorila no cierre todo de inmediato
+    setTimeout(() => {
+      DISMISS_EVENTS.forEach((evt) => window.addEventListener(evt, dismiss, { capture: true }));
+    }, 400);
   }
 
   function stopGorillaChase() {

@@ -7,6 +7,14 @@
 
   document.getElementById("party-name").textContent = PARTY_DETAILS.nombreFestejado + "'s birthday";
 
+  // si se llegó desde index.html con el slug del invitado (?g=...), el
+  // botón de "volver al inicio" regresa a su link personal en vez de
+  // caer en la pantalla de "acceso denegado" por falta de slug
+  const guestSlug = new URLSearchParams(window.location.search).get("g");
+  if (guestSlug) {
+    document.getElementById("back-link").href = "index.html?g=" + encodeURIComponent(guestSlug);
+  }
+
   let supabase = null;
   try {
     if (window.supabase && SUPABASE_URL && !SUPABASE_URL.includes("TU_SUPABASE")) {

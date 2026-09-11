@@ -42,13 +42,13 @@ const PARTY_DETAILS = {
 // Si el slug no está aquí, se bloquea el acceso (pantalla de invitación
 // no reconocida).
 const GUEST_LIST = {
-  vianey: "Vianey",
-  antonio: "Antonio",
-  joseluis: "Jose Luis",
-  berenice: "Berenice",
-  valentino: "Valentino",
-  alejandro: "Alejandro",
-  francisco: "Francisco",
-  veronicadelmar: "Del Mar",
-  profejoseluis: "Jose Luis",
+  vianey19: "Vianey",
+  joseluis29: "Jose Luis",
+  antonio39: "Antonio",
+  berenice49: "Berenice",
+  valentino59: "Valentino",
+  alejandro69: "Alejandro",
+  francisco79: "Francisco",
+  veronicadelmar89: "Del Mar",
+  profejoseluis99: "Jose Luis",
 };
