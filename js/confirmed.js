@@ -44,39 +44,29 @@
   function render() {
     listEl.innerHTML = "";
 
-    // GUEST_LIST es el mapa { slug: nombre } definido en config.js —
-    // la única fuente de verdad de quién está invitado. La comparación es
-    // por slug exacto, sin normalizar texto ni adivinar coincidencias.
-    const rows = Object.keys(GUEST_LIST).map((slug) => {
-      const nombre = GUEST_LIST[slug];
-      const confirmado = confirmedBySlug.get(slug);
-      return {
-        slug: slug,
-        nombre: nombre,
-        confirmed: !!confirmado,
-        timestamp: confirmado ? confirmado.timestamp : null,
-      };
+    // Solo se muestran los que ya confirmaron (por privacidad no se expone
+    // quién falta por responder). GUEST_LIST se usa únicamente para
+    // ignorar cualquier slug que no corresponda a un invitado real.
+    const rows = [];
+    confirmedBySlug.forEach((info, slug) => {
+      if (!GUEST_LIST[slug]) return; // slug desconocido, se ignora
+      rows.push({ nombre: info.nombre, timestamp: info.timestamp });
     });
 
-    rows.sort((a, b) => {
-      if (a.confirmed && !b.confirmed) return -1;
-      if (!a.confirmed && b.confirmed) return 1;
-      if (a.confirmed && b.confirmed) return new Date(b.timestamp) - new Date(a.timestamp);
-      return a.nombre.localeCompare(b.nombre);
-    });
+    rows.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    if (rows.length === 0) {
+      listEl.innerHTML =
+        '<div class="guest-row"><span class="guest-name">Nadie ha confirmado todavía...</span></div>';
+      return;
+    }
 
     rows.forEach((row) => {
       const div = document.createElement("div");
-      div.className = "guest-row " + (row.confirmed ? "confirmed" : "pending");
-      if (row.confirmed) {
-        div.innerHTML =
-          '<span class="guest-name">' + escapeHtml(row.nombre) + "</span>" +
-          '<span class="guest-time">' + relativeTime(row.timestamp) + "</span>";
-      } else {
-        div.innerHTML =
-          '<span class="guest-name">👻 ??? — ' + escapeHtml(row.nombre) + "</span>" +
-          '<span class="guest-time">aún en el limbo</span>';
-      }
+      div.className = "guest-row confirmed";
+      div.innerHTML =
+        '<span class="guest-name">' + escapeHtml(row.nombre) + "</span>" +
+        '<span class="guest-time">' + relativeTime(row.timestamp) + "</span>";
       listEl.appendChild(div);
     });
   }

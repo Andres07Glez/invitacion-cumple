@@ -27,10 +27,10 @@ const SUPABASE_ANON_KEY = "sb_publishable_Y1dQF4EDf0Mmaa4Lf-GgVA_t3gTz5Ip";
 // ---- Detalles de la fiesta ----
 const PARTY_DETAILS = {
   nombreFestejado: "Andrés",
-  fecha: "Sábado 26 de septiembre, 2026 — 8:00 PM",
-  lugar: "Casa de Andrés (dirección enviada por privado)",
-  queLlevar: "Tu mejor actitud, algo para compartir y muchas ganas de bailear.",
-  mensajeExtra: "Dress code: neón / cyberpunk. No se aceptan excusas de 'no tenía nada que ponerme'.",
+  fecha: "Sábado 12 de septiembre, 2026 — 3:00 PM",
+  lugar: "Casa de Andrés (dirección:donde vea cartel de one piece)",
+  queLlevar: "Tu mejor actitud, algo para compartir(chismes) y muchas ganas de bailear.",
+  mensajeExtra: "Con que traigan hambre pasan",
 };
 
 // ---- Lista de invitados (hardcodeada) ----
@@ -49,4 +49,6 @@ const GUEST_LIST = {
   valentino: "Valentino",
   alejandro: "Alejandro",
   francisco: "Francisco",
+  veronicadelmar: "Del Mar",
+  profejoseluis: "Jose Luis",
 };

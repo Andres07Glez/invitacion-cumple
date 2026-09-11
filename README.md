@@ -25,10 +25,10 @@ realtime), pensada para desplegarse en GitHub Pages.
    - Se muestra una pantalla "Logro Desbloqueado" con los detalles de la
      fiesta, confeti (canvas) y un jingle 8-bit (Web Audio API).
    - Botón **[ Ver quién más va ]** → `confirmed.html`.
-6. `confirmed.html` muestra en tiempo real (Supabase Realtime) quién ha
-   confirmado, con tiempo relativo, y quién de `GUEST_LIST` sigue sin
-   confirmar (👻 ??? — aún en el limbo). La comparación es por slug exacto,
-   sin ambigüedad de texto.
+6. `confirmed.html` muestra en tiempo real (Supabase Realtime) solo a
+   quienes ya confirmaron, con tiempo relativo — por privacidad no expone
+   quién falta por responder. `GUEST_LIST` se usa únicamente para ignorar
+   cualquier slug que no corresponda a un invitado real.
 
 ## Configuración
 
